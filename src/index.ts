@@ -6,6 +6,10 @@ import bodyParser from "body-parser";
 import { WeatherForecastResult } from "./types/weather.model";
 import { IWeatherReport } from "./types/weather.interface";
 
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const app: Application = express();
 const port: number = 3001;
 

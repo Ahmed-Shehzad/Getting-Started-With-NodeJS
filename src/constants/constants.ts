@@ -1,2 +1,2 @@
-export const weatherApiKey = "7ffc80ab15cee19a7c8fefada7840a86";
-export const baseApiUrl = "http://api.weatherstack.com/current";
+export const weatherApiKey = process.env.WEATHER_API_KEY;
+export const baseApiUrl = process.env.API_URL;
