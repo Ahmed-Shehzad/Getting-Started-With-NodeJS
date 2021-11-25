@@ -1,0 +1,63 @@
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link href="./css/bootstrap.min.css" rel="stylesheet" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<title>Weather App</title>
+</head>
+
+<body>
+
+	{{>header}}
+
+	<section class="top-banner">
+		<div class="container">
+			<h1 class="heading">Simple Weather App</h1>
+			<input id="city" type="text" placeholder="Search for a city" value="{{city}}" autofocus />
+			<button type="button" onclick="showResults()">SUBMIT</button>
+		</div>
+
+		<div id="weather" style="display: none;" class="container">
+
+		</div>
+	</section>
+
+	<script src="./js/popper.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+	<script>
+		function showResults() {
+			let city = document.getElementById('city').value;
+			$.ajax({
+				type: 'POST',
+				data: JSON.stringify({
+					"city": city
+				}),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				url: "/city",
+				success: function (response) {
+					const weather = document.getElementById('weather');
+					weather.style.display = "block";
+
+					const heading = document.createElement("h1");
+					const image = document.createElement("img");
+					heading.classList.add("heading");
+
+					const textnode = document.createTextNode("Current Temperature in " +
+						response.location.name + " is" + response.current.temperature);
+
+					heading.appendChild(textnode);
+					image.src = response.current.weather_icons[0];
+
+					weather.appendChild(heading);
+					weather.appendChild(image);
+				}
+			});
+		}
+	</script>
+</body>
+
+</html>
